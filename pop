@@ -1,0 +1,44 @@
+
+import java.util.*;
+
+public class Main {
+    public static int stud(int[] students, int[] sandwiches) {
+        Stack<Integer> stack = new Stack();
+        Queue<Integer> queue = new LinkedList<>();
+        System.out.println(Arrays.toString(students));
+        System.out.println(Arrays.toString(sandwiches));
+
+        
+        for (int k = sandwiches.length - 1; k > -1; k--) {
+            stack.add(sandwiches[k]);
+        }
+        for (int k : students) {
+            queue.add(k);
+        }
+
+        int n = 0;
+        while (!queue.isEmpty()) {
+            if (n == queue.size()) {
+                return queue.size();
+            } else {
+                if (stack.peek().equals(queue.peek())) {
+                    stack.pop();
+                    queue.remove();
+                    n = 0;
+                } else {
+                    n++;
+                    queue.add(queue.peek());
+                    queue.remove();
+                }
+            }
+        }
+        return 0;
+    }
+
+    public static void main(String[] args) {
+
+        int[] sd = {1,1,0,0};
+        int[] seng = {0,1,0,1};
+        System.out.println(stud(sd, seng));
+    }
+}
